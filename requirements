@@ -1,0 +1,14 @@
+This project will consist of the following:
+  1. A playable version of Battleship
+      1a. Playable against an AI or a human opponent.
+        a1. AI will have one dificutly setting that will randomly guess ship positions until it strikes, then guesses within 1 square of hit.
+        a2. Players will input a simple pin to prevent opponent from seeing their board when it's passed to them, this will be assigned at
+            the ship positioning stage.
+      1b. Using SDL to create the GUI this project will have simple graphics displaying the current player's ships and where they
+          have shot on the opponents board.
+      1c. It will use the Milton Bradley rule-set and ship count.
+  2. A main menu and save states.
+      2a. A main GUI menu to pick the opponent from.
+      2b. Save states to resume games at a later date.
+        b1. Save states will store current board, including fired shots and pins.
+  3. ???
