@@ -1,0 +1,8 @@
+Story 1
+    I started the game and was greeted by the main menu. 
+    And then had to choose between playing against computer my friend. 10
+Story 2
+    After choosing to play against my friend we each took a turn placing our ships. 5
+Story 3
+    After choosing to play against the computer I placed my ships and took my turn. 
+    The computer then took its turn by shooting at me. 20
