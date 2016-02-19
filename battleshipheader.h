@@ -23,6 +23,7 @@ class board
 		{
 			return board_.size();
 		}
+		void printGhettoBoard();
 
 	private:
 		vector<int> board_;
@@ -37,5 +38,19 @@ void createboard()
 {
 	vector<bool> board[100];
 }
+
+
+void printGhettoBoard()
+{
+	for (int i = 0; i < 10; ++i)
+	{
+		for (int j = 0; j < 10; ++j)
+		{
+			cout << "cat ";
+		}
+		cout << endl;
+	}
+}
+
 
 #endif
