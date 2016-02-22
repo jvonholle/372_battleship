@@ -1,0 +1,18 @@
+Design Document:
+	We approached this program doing some minor testing that we formed ourselves moving up to a framework.
+	We plan to implement the catch framework to allow us to easily test new functionality.
+	Using Catch to test our functionality, will allowed us to expedite the testing process.
+	
+	Our boards are being built from one vector to simulate a 2d array. Each position in this vector is modifiable
+	to show different board states. One to show open water one to show a boat undamaged and one to show a secection of a damged boat.
+	The board itself should not be able to move to the playing state if doesnt pass our starting tests for being ok for setting up the board.
+	
+	Planning on using SDL to create the graphics our user will see.
+	However we want also want to add a version of it which is being printed out in ASCII art for the board.
+	That way if the user lacks the required files it still has a rudementry backup.
+	
+	Are pin which the user uses to sign in for his turn will also need to be saved into the save state.
+	
+	Planning to implement save states by pushing off board state to a file. Those locations of modified spots
+	allows us to have them swap it in easy bacause it can just be re-assigned over a normal vector.
+	If we can save it easily in a non human readable form that loads back in good as well that is the plan.
