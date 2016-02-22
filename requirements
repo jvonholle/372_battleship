@@ -1,14 +1,43 @@
 This project will consist of the following:
-  1. A playable version of Battleship
-      1a. Playable against an AI or a human opponent.
+  1. This game will have all the features for you to play a game of battle ship
+      
+      1a. You can assign the posions of ships on the board
+
+      1b. Have the requiste number of ships before the game can proceed
+
+      1c. The ships cant overlap and extend out of the area
+
+  2. A playable version of Battleship
+
+      2a. Playable against an AI or a human opponent.
+
         a1. AI will have one dificutly setting that will randomly guess ship positions until it strikes, then guesses within 1 square of hit.
-        a2. Players will input a simple pin to prevent opponent from seeing their board when it's passed to them, this will be assigned at
-            the ship positioning stage.
-      1b. Using SDL to create the GUI this project will have simple graphics displaying the current player's ships and where they
-          have shot on the opponents board.
-      1c. It will use the Milton Bradley rule-set and ship count.
-  2. A main menu and save states.
-      2a. A main GUI menu to pick the opponent from.
-      2b. Save states to resume games at a later date.
+      
+        a2. Players will input a simple pin to prevent opponent from seeing their board when it's passed to them, this will be assigned at the ship positioning stage.
+
+        a3. Players will place all their boats than pass it to prevent an uneeded amount of computer swapping.
+      
+      2b. Using SDL to create the GUI this project 
+
+        b1. Will have simple graphics displaying the current player's ships status and location 
+
+        b3. Where they have shot on the opponents board displayed on a secondary board
+  
+  3. A main menu and save states.
+  
+      3a. A main GUI menu
+
+        a1. To pick the opponent from
+
+        a2. To choose to load
+
+        a3. To select to start a new game
+  
+      3b. Save states to resume games at a later date.
+  
         b1. Save states will store current board, including fired shots and pins.
-  3. ???
+
+        b2. Make the save state in a non human readable form to prevent cheating
+  
+  4. 
+
