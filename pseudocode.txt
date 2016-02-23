@@ -68,4 +68,14 @@ tests
                 should know if sunk
                 should know if placed
         member function checks
+                check fire
+                    hit should hit
+                    miss should miss
+                    should return R on attemnt to hit used spot
+                check place
+                    should return false if fail
+                    should position ship correctly
+                check print
+                    should print both vectors corecctly
+END CHECKS
         
