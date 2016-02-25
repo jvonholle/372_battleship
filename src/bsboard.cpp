@@ -1,4 +1,6 @@
 #include "bsboard.h"
+#include <cstddef>
+using std::size_t;
 #include <random>//for pin generation, random_device and uniform_int_distribuition<>
 #include <utility>
 using std::make_pair;
@@ -36,7 +38,52 @@ board::board(){
 char board::takeFire(int coord){
 }
 
-bool board::place(string shipName, int coord, char rot){
+bool board::place(const string & shipName, const int & coord, const char & rot){
+
+if(ships_[shipName].getpos().first == -1 && ships_[shipName].getpos().second == 'N'){
+    switch(rot){
+        case 'U' : {
+                       if(coord < ships_[shipName].getsize() * 10 )
+                           return false;
+                       else{
+                           ships_[shipName].setpos(coord,rot);
+                           for(int i = 0; i < ships_[shipName].getsize(); ++i)
+                              myBoard_[coord-(i*10)] = 1; 
+                           return true;
+                       }
+                   }
+        case 'R' : {
+                       for(int i = 1; i < ships_[shipName].getsize()+1; ++i)
+                           if((coord+i)%10 == 0)
+                               return false;
+                       for(int i = 0; i < ships_[shipName].getsize(); ++i)
+                           myBoard_[coord+i] = 1;
+                       ships_[shipName].setpos(coord,rot);
+                       return true;
+                   }
+        case 'L' : {
+                       for(int i = 0; i < ships_[shipName].getsize(); ++i)
+                           if((coord-i)%10 == 0)
+                               return false;
+                       for(int i = 0; i < ships_[shipName].getsize(); ++i)
+                           myBoard_[coord-i] = 1; 
+                       ships_[shipName].setpos(coord,rot);
+                       return true;
+                   }
+        case 'D' : {
+                       if(coord + ships_[shipName].getsize() * 10 > 100)
+                           return false;
+                       else{
+                           ships_[shipName].setpos(coord,rot);
+                           for(int i = 0; i < ships_[shipName].getsize(); ++i)
+                              myBoard_[coord+(i*10)] = 1; 
+                           return true;
+                       }
+                   }
+        default : return false;
+        }
+    }
+return false;
 }
 
 void board::print(){

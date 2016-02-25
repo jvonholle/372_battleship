@@ -30,6 +30,8 @@ class ship{
         //member functions
         pair<int, char> getpos(){
            return coord_;}
+        void setpos(int i, char c){
+            coord_ = make_pair(i,c);}
         int gethealth(){
            return health_;}
         int getsize(){
@@ -69,7 +71,7 @@ class board{
         //member functions
         char takeFire(int coord);
 
-        bool place(string shipName, int coord, char rot);
+        bool place(const string & shipName, const int & coord, const char & rot);
 
         void print();
 
