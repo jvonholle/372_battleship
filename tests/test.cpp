@@ -31,7 +31,9 @@ TEST_CASE("Testing Board, Standard Rules"){
         REQUIRE(test.getPin() >= 100);
         REQUIRE(test.getPin() <= 999);
     }
-    SECTION("Check Ships"){
+}
+TEST_CASE("Testing Ships"){
+    board test;
         SECTION("Checking Carrier"){
             REQUIRE(test.getship("Carrier").getsize() == 5);
             REQUIRE(test.getship("Carrier").getpos().first == -1);
@@ -67,8 +69,9 @@ TEST_CASE("Testing Board, Standard Rules"){
             REQUIRE(test.getship("Destroyer").gethealth() == 2);
             REQUIRE(test.getship("Destroyer").getsunk() == false);
         }
-    }
-    SECTION("Check place()"){
+}
+TEST_CASE("Testing Place"){
+    board test;
         //check success right
         SECTION("Check good place right"){
         REQUIRE(test.place("Sub", 13, 'R') == true);
@@ -128,8 +131,9 @@ TEST_CASE("Testing Board, Standard Rules"){
         REQUIRE(test.getship("Carrier").getpos().second == 'N'); 
         REQUIRE(test.getship("Cruiser").gethealth() == 3);
         REQUIRE(test.getship("Cruiser").getsunk() == false);}
-    }
-    SECTION("Check takeFire()"){
+}
+TEST_CASE("Testing takefire"){    
+    board test;
         //check hit
         SECTION("Check hit"){
         REQUIRE(test.takeFire(13) == 'H');
@@ -161,9 +165,5 @@ TEST_CASE("Testing Board, Standard Rules"){
         REQUIRE(test.getship("Sub").getsize() == 3);
         REQUIRE(test.getship("Sub").getsunk() == true);
         REQUIRE(test.getmyBoard()[15] == 2);}
-    }
-    SECTION("Check print()"){
-       //not sure what to put here, might just check visually 
-    }    
-
 }
+
