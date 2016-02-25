@@ -1,10 +1,10 @@
 all: sdl
 
-test: test.cpp
-	g++ -std=c++11 test.cpp bsboard.cpp bsboard.h
+test: tests/test.cpp
+	g++ -std=c++11 tests/test.cpp src/bsboard.cpp src/bsboard.h
 
-sdl: main_sdl.cpp
-	g++ -std=c++11 main_sdl.cpp bsboard.cpp bsboard.h -lSDL2 -lSDL2_image
+sdl: scr/main_sdl.cpp
+	g++ -std=c++11 src/main_sdl.cpp src/bsboard.cpp src/bsboard.h -lSDL2 -lSDL2_image
 
-ascii: main_ascii.cpp
-	g++ -std=c++11 main_ascii.cpp bsboard.cpp bsboard.h
+ascii: src/main_ascii.cpp
+	g++ -std=c++11 src/main_ascii.cpp src/bsboard.cpp src/bsboard.h
