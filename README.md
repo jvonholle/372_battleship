@@ -9,7 +9,7 @@
    <h5> Make options: </h5>
    <h6> test - compiles with the test suite </h6> 
    <h6> sdl - compiles with SDL GUI functiality </h6>
-   <h6> ascii - compiles without SDL, prints a terminal version in ascii </h6>
+   <h6> ascii - runs a terminal version with ascii art for graphics and commandline input </h6>
 <br /br>
 <br /br>
 <img src="https://roosterillusionreviews.files.wordpress.com/2012/05/battleship-movie-poster-10.jpg" alt="bship_jp"> 
