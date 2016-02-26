@@ -138,7 +138,7 @@ TEST_CASE("Testing Place"){
         } 
         //check fail because bad position
         SECTION("Check fail bad place UP"){
-            REQUIRE(test.place("Cruiser", 0, 'U') == false);
+            REQUIRE(test.place("Cruiser", 100, 'U') == false);
             REQUIRE(test.getship("Cruiser").getpos().first == -1);
             REQUIRE(test.getship("Carrier").getpos().second == 'N'); 
             REQUIRE(test.getship("Cruiser").gethealth() == 3);

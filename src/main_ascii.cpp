@@ -1,0 +1,362 @@
+#include "bsboard.h"
+#include <iostream>
+using std::cout;
+using std::endl;
+using std::cin;
+#include <string>
+using std::string;
+
+//deCoord
+//takes a char and an int
+//returns an int
+//turns battle ship style coordinates eg. (A,8)
+//  into an int, which the place function takes
+//returns -1 on invalid coordinate
+int deCoord(char x, int y){
+    if(y >0 && y<11){
+        switch(x){
+            case 'A' : return ((y-1)*10)+0;
+            case 'B' : return ((y-1)*10)+1;
+            case 'C' : return ((y-1)*10)+2;
+            case 'D' : return ((y-1)*10)+3;
+            case 'E' : return ((y-1)*10)+4;
+            case 'F' : return ((y-1)*10)+5;
+            case 'G' : return ((y-1)*10)+6;
+            case 'H' : return ((y-1)*10)+7;
+            case 'I' : return ((y-1)*10)+8;
+            case 'J' : return ((y-1)*10)+9;
+            default : return -1;
+        }
+    }
+    else
+        return -1;
+}
+
+//singleplayer
+//takes nothing
+//returns nothing
+//produces single player game loop
+void singleplayer(){
+    cout << "SINGLEPLAYER!!" << endl;
+}
+
+//twoplayer
+//takes nothing
+//returns nothing
+//launches and runs two player game of battle ship
+void twoplayer(){
+    board boardP1;
+    board boardP2;
+    cout << "TWO PLAYER!!" << endl;
+    string player1;
+    string player2;
+    cout << "Player 1, enter your name now: ";
+    cin >> player1;
+    cout << "Okay! " << player1 << ", let Player 2 enter their name now: ";
+    cin >> player2;
+   
+    string check = "n"; 
+    string ship;
+    char xcoord;
+    int ycoord;
+    int pos;
+    char rot;
+    bool allplaced = false;
+    //player one turn one
+    cout << player1 << " it's your turn to place your ships! " << player2 << " please look away." << endl;
+    while(check != "y"){
+         cout << "Is " << player2 << " looking away from the screen? (y,n) ";
+         cin >> check;
+    }
+    check = 'n';
+    while(check != "y"){
+        cout << player1 << " your pin is: " << boardP1.getPin() << " don't forget it!" << endl;
+        cout << "Do you have it memorized? (y,n) ";
+        cin >> check;
+    }
+    while(!allplaced){
+        cout << "-----SHIP PLACEMENT FOR " << player1 << "-----" << endl;
+        cout << "> "; 
+        cin >> ship;
+        if(ship == "help"){
+           cout << "list -- list of ships and their status" << endl <<
+              "help -- display this text" << endl <<
+              "\"shipname\" -- enter place menu for named ship" << endl;
+        }else if(ship == "list"){
+            for(auto& i : boardP1.getships()){
+                cout << i.first << " : " ;
+                if(i.second.getpos().first == -1){
+                    cout << "not placed" << endl;
+                    allplaced = false;
+                }else{
+                    cout << "placed" << endl;
+                    allplaced = true;
+                }
+            }
+        }else if(ship == "Cruiser"){
+            while(true){
+                cout << player1 << " you are placing your " << ship << " it is " << boardP1.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP1.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP1.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else if(ship == "Sub"){
+            while(true){
+                cout << player1 << " you are placing your " << ship << " it is " << boardP1.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP1.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP1.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else if(ship == "Destroyer"){
+            while(true){
+                cout << player1 << " you are placing your " << ship << " it is " << boardP1.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP1.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP1.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else if(ship == "Battleship"){
+            while(true){
+                cout << player1 << " you are placing your " << ship << " it is " << boardP1.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP1.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP1.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else if(ship == "Carrier"){
+            while(true){
+                cout << player1 << " you are placing your " << ship << " it is " << boardP1.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP1.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP1.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else{
+            cout << "Unrecognized command! Type help for commands." << endl;
+        }
+        allplaced = true;
+        for(auto& i : boardP1.getships())
+            if(i.second.getpos().first == -1)
+                allplaced = false;
+    }//end player 1 turn 1
+
+    cout << player1 << ", please hit enter and pass to " << player2 << "." <<endl;
+    while(cin.get() != '\n');
+
+    for(int i = 0; i< 1000; ++i)
+        cout << endl;
+
+    //player one turn one
+    cout << player1 << " it's your turn to place your ships! " << player2 << " please look away." << endl;
+    while(check != "y"){
+         cout << "Is " << player2 << " looking away from the screen? (y,n) ";
+         cin >> check;
+    }
+    check = 'n';
+    while(check != "y"){
+        cout << player1 << " your pin is: " << boardP1.getPin() << " don't forget it!" << endl;
+        cout << "Do you have it memorized? (y,n) ";
+        cin >> check;
+    }
+    allplaced = false;
+    while(!allplaced){
+        cout << "-----SHIP PLACEMENT FOR " << player2 << "-----" << endl;
+        cout << "> "; 
+        cin >> ship;
+        if(ship == "help"){
+           cout << "list -- list of ships and their status" << endl <<
+              "help -- display this text" << endl <<
+              "\"shipname\" -- enter place menu for named ship" << endl;
+        }else if(ship == "list"){
+            for(auto& i : boardP2.getships()){
+                cout << i.first << " : " ;
+                if(i.second.getpos().first == -1){
+                    cout << "not placed" << endl;
+                }else{
+                    cout << "placed" << endl;
+                }
+            }
+        }else if(ship == "Cruiser"){
+            while(true){
+                cout << player2 << " you are placing your " << ship << " it is " << boardP2.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP2.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP2.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else if(ship == "Sub"){
+            while(true){
+                cout << player2 << " you are placing your " << ship << " it is " << boardP2.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP2.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP2.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else if(ship == "Destroyer"){
+            while(true){
+                cout << player2 << " you are placing your " << ship << " it is " << boardP2.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP2.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP2.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else if(ship == "Battleship"){
+            while(true){
+                cout << player2 << " you are placing your " << ship << " it is " << boardP2.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP2.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP2.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else if(ship == "Carrier"){
+            while(true){
+                cout << player2 << " you are placing your " << ship << " it is " << boardP2.getship(ship).getsize() << " long" << endl;
+                cout << "Here is the current board:" << endl;
+                boardP2.print(1);
+                cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
+                cin >> xcoord;
+                cout << "N: ";
+                cin >> ycoord;
+                pos = deCoord(xcoord, ycoord);
+                cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                cin >> rot;
+                if(boardP2.place(ship, pos, rot))
+                    break;
+                else
+                    cout << "Placement failed! Please try again." << endl;
+            }
+        }else{
+            cout << "Unrecognized command! Type help for commands." << endl;
+        }
+        allplaced = true;
+        for(auto& i : boardP2.getships())
+            if(i.second.getpos().first == -1)
+                allplaced = false;
+    }//end player 2 turn 1
+
+    //main game loop
+    while(true){
+        cout << player1 << "'s turn" << endl;
+        break;
+    }
+}
+
+
+int main(){
+    cout << ".______        ___      .___________..___________. __       _______      _______. __    __   __  .______   " << endl;
+    cout << "|   _  \\      /   \\     |           ||           ||  |     |   ____|    /       ||  |  |  | |  | |   _  \\  " << endl;
+    cout << "|  |_)  |    /  ^  \\    `---|  |----``---|  |----`|  |     |  |__      |   (----`|  |__|  | |  | |  |_)  | " << endl;
+    cout << "|   _  <    /  /_\\  \\       |  |         |  |     |  |     |   __|      \\   \\    |   __   | |  | |   ___/  " << endl;
+    cout << "|  |_)  |  /  _____  \\      |  |         |  |     |  `----.|  |____ .----)   |   |  |  |  | |  | |  |      " << endl;
+    cout << "|______/  /__/     \\__\\     |__|         |__|     |_______||_______||_______/    |__|  |__| |__| | _|      " << endl;
+   
+
+    string input; 
+    string quit;
+    while(true){
+      cout << endl << "------MAIN MENU-----" << endl;
+      cout << "> ";
+      cin >> input;
+          if(input == "singleplayer"){
+              singleplayer(); 
+          }else if(input == "twoplayer"){
+              twoplayer();
+          }else if(input == "help"){
+              cout << "singleplayer - launch single player mode"<<endl<<
+                  "twoplayer - launch two player mode"<<endl<<
+                  "help - display this text"<<endl<<
+                  "quit - exit game"<<endl;
+          }else if(input == "quit"){
+             cout << "Are you sure you want to quit? (y,n) ";
+             cin >> quit;
+            if(quit == "y")
+               break; 
+          }else{
+              cout << "Unrecognized command. Type help for commands." << endl;
+          }
+    }  
+   return 0; 
+}

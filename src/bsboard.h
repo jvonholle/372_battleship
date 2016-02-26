@@ -65,6 +65,9 @@ class board{
             return theirBoard_;}
         int getPin(){
             return pin_;}
+        map<string, ship> getships(){
+            return ships_;
+        }
         ship getship(string shipName){
             return ships_[shipName];}
 
@@ -73,6 +76,7 @@ class board{
 
         bool place(const string & shipName, const int & coord, const char & rot);
 
+        void print(int i);
         void print();
 
     private:
