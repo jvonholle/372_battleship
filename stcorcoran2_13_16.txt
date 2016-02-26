@@ -1,0 +1,4 @@
+Thinking about users placeing down boats. Lock the boat to their cursor where it faces downward or to the right.
+This leaves the mouse always at the head of ship.
+
+-Scott

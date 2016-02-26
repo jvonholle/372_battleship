@@ -1,0 +1,4 @@
+Set up a rough print function for ASCII testing. 
+Need to look some stuff up and create a state for each location on the board.
+
+-Scott

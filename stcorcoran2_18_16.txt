@@ -1,0 +1,5 @@
+Considering using the catch testing framework.
+Jesse told me it was not to bad to figure out.
+I also felt a little lost in how to write up my own tests.
+
+-Scott

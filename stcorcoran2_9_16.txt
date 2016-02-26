@@ -1,0 +1,5 @@
+I thought about different options for how we can make a simple AI.
+Going with a random number generater till a hit is confirmed, from there you can 
+go through a simple algorithem for solving where to fire next.
+
+-Scott

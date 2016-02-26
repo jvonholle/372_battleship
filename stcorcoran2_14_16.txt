@@ -1,0 +1,4 @@
+We shouldnt allow the turning of boats without picking the ship up off the board again.
+That way we can just check once at placement for legality.
+
+-Scott
