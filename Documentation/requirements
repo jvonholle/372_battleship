@@ -1,11 +1,17 @@
 This project will consist of the following:
   1. This game will have all the features for you to play a game of battle ship
       
-      1a. You can assign the posions of ships on the board
+      1a. You can assign the positionso of ships on the board
 
       1b. Have the requiste number of ships before the game can proceed
 
       1c. The ships cant overlap and extend out of the area
+	  
+	  1d. A confirmation of setup
+	  
+	  1e. The game will proceed giving each player a turn to fire\
+	  
+	  1f. This will throw an error if the player chooses to fire at a posistion that they should not
 
   2. A playable version of Battleship
 
@@ -21,8 +27,11 @@ This project will consist of the following:
 
         b1. Will have simple graphics displaying the current player's ships status and location 
 
-        b3. Where they have shot on the opponents board displayed on a secondary board
-  
+		b2. Having a the help command assist a player if they are confused
+        
+		b3. Where they have shot on the opponents board displayed on a secondary board
+		
+		
   3. A main menu and save states.
   
       3a. A main GUI menu
@@ -39,5 +48,5 @@ This project will consist of the following:
 
         b2. Make the save state in a non human readable form to prevent cheating
   
-  4. 
+  4.
 
