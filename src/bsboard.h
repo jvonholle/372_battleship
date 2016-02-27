@@ -38,6 +38,12 @@ class ship{
            return size_;}
         bool getsunk(){
             return sunk_;}
+        void sink(){
+            sunk_ = true;
+        }
+        const ship& operator--(){
+            health_ = health_-1;
+        }
     private:
         pair<int, char> coord_;
         int health_;

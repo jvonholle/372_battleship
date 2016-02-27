@@ -39,12 +39,66 @@ board::board(){
 }
 
 char board::takeFire(int coord){
+    if (myBoard_[coord] == 1) //hits a boat
+    {
+        myBoard_[coord] = 2;
+        for(auto& i : ships_){
+                if(i.second.getpos().first == coord){
+                    --i.second;
+                    break;
+                }
+                else{
+                    switch(i.second.getpos().second){
+                        case 'U' : {
+                                        for(int j = 0; j < i.second.getsize(); ++j)
+                                            if(coord + (j*10) == i.second.getpos().first)
+                                                --i.second;
+                                        if(i.second.gethealth() == 0)
+                                            i.second.sink();
+                                        break;
+                                   }
+                        case 'D' : {
+                                        for(int j = 0; j < i.second.getsize(); ++j)
+                                            if(coord - (j*10) == i.second.getpos().first)
+                                                --i.second;
+                                        if(i.second.gethealth() == 0)
+                                            i.second.sink();
+                                        break;
+                                   }
+                        case 'L' : {
+                                        for(int j = 0; j < i.second.getsize(); ++j)
+                                            if(coord + j == i.second.getpos().first)
+                                                --i.second;
+                                        if(i.second.gethealth() == 0)
+                                            i.second.sink();
+                                        break;
+
+                                   }
+                        case 'R' : {
+                                        for(int j = 0; j < i.second.getsize(); ++j)
+                                            if(coord - j == i.second.getpos().first)
+                                                --i.second;
+                                        if(i.second.gethealth() == 0)
+                                            i.second.sink();
+                                        break;
+                                   }
+                    }
+                }
+            }
+        return 'H';
+    }
+    else if (myBoard_[coord] == 0) //open water
+    {
+        myBoard_[coord] = -1;
+        return 'M';
+    }
+    return 'R'; // they chose something wrong
 }
 
 bool board::place(const string & shipName, const int & coord, const char & rot){
-if(coord < 0 || coord >99)
-    return false;
-if(ships_[shipName].getpos().first == -1 && ships_[shipName].getpos().second == 'N'){
+    if(coord < 0 || coord >99)
+        return false;
+    if(ships_[shipName].getpos().first == -1 && ships_[shipName].getpos().second == 'N'){
     switch(rot){
         case 'U' : {
                        if(coord < ships_[shipName].getsize() * 10 )

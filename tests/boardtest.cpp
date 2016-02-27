@@ -173,7 +173,7 @@ TEST_CASE("Testing takefire"){
     board test;
         //check hit
         SECTION("Check hit"){
-            test.place("Sub", 13, 'L');
+            test.place("Sub", 13, 'R');
             REQUIRE(test.takeFire(13) == 'H');
             REQUIRE(test.getship("Sub").gethealth() == 2);
             REQUIRE(test.getship("Sub").getsize() == 3);
@@ -187,7 +187,7 @@ TEST_CASE("Testing takefire"){
         }
         //check shoot same spot
         SECTION("Check same spot"){
-            test.place("Sub", 13, 'L');
+            test.place("Sub", 13, 'R');
             REQUIRE(test.takeFire(13) == 'H');
             REQUIRE(test.getship("Sub").gethealth() == 2);
             REQUIRE(test.getship("Sub").getsize() == 3);
@@ -199,7 +199,7 @@ TEST_CASE("Testing takefire"){
         }
         //check another shot
         SECTION("Check another hit, same ship"){
-            test.place("Sub", 13, 'L');
+            test.place("Sub", 13, 'R');
             REQUIRE(test.takeFire(13) == 'H');
             REQUIRE(test.getship("Sub").gethealth() == 2);
             REQUIRE(test.getship("Sub").getsize() == 3);
@@ -212,7 +212,7 @@ TEST_CASE("Testing takefire"){
         }
         //check sink
         SECTION("Check sink"){
-            test.place("Sub", 13, 'L');
+            test.place("Sub", 13, 'R');
             REQUIRE(test.takeFire(13) == 'H');
             REQUIRE(test.getship("Sub").gethealth() == 2);
             REQUIRE(test.getship("Sub").getsize() == 3);
