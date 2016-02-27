@@ -7,10 +7,10 @@
    <li><a href ="https://github.com/philsquared/Catch">Catch - The testing suite we're using</a></li>
 <br /br>
    <h5> Make options: </h5>
-   <h6> btest - compiles to the test suite for the board class </h6> 
-   <h6> ptest - compiles to the test suite for the print functions, used for testing ascii art output </h6> 
-   <h6> sdl - compiles to a version with SDL GUI functiality </h6>
-   <h6> ascii - compiles to a terminal version with ascii art for graphics and commandline input </h6>
+   <h6> btest - compiles to the test suite for the board class - all pass </h6> 
+   <h6> ptest - compiles to the test suite for the print functions, used for testing ascii art output - not implemented</h6> 
+   <h6> sdl - compiles to a version with SDL GUI functiality - not implemented</h6>
+   <h6> ascii - compiles to a terminal version with ascii art for graphics and commandline input - compiles, does not play full game</h6>
 <br /br>
 <br /br>
 <img src="https://roosterillusionreviews.files.wordpress.com/2012/05/battleship-movie-poster-10.jpg" alt="bship_jp"> 
