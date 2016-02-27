@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # MORTAL SHIP KOMBAT
 <h4> A simple 1-2 player battleship game written in C++ by Scott Corcoran and James Von Holle. </h4>
 <br /br>
@@ -15,10 +14,3 @@
 <br /br>
 <br /br>
 <img src="https://roosterillusionreviews.files.wordpress.com/2012/05/battleship-movie-poster-10.jpg" alt="bship_jp"> 
-=======
-#Branch Jimmy
-
-<h2> This branch is for code modified by James Von Holle, all code will compile. It might not pass all tests. </h2>
-<h4> Code that passes all tests will be put up for review to move to master branch for PROD version. </h4>
-<li><a href="http://patorjk.com/software/taag/#p=display&h=0&v=0&f=Star%20Wars&t=Battleship"> ascii art gen</a> </li>
->>>>>>> jimmy
