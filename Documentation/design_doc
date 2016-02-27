@@ -12,6 +12,7 @@ Design Document:
 	That way if the user lacks the required files it still has a rudementry backup.
 	
 	Are pin which the user uses to sign in for his turn will also need to be saved into the save state.
+	These pins are assigned to the user as a simple three digit number that exists between 100 and 999.
 	
 	Planning to implement save states by pushing off board state to a file. Those locations of modified spots
 	allows us to have them swap it in easy bacause it can just be re-assigned over a normal vector.
