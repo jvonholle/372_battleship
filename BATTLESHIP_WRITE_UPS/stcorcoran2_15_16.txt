@@ -1,0 +1,3 @@
+Considering maybe hasing the save state of the board so that otherrs can look at the save state to look at player positions
+
+-Scott 

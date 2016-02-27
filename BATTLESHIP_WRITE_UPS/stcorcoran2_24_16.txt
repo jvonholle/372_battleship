@@ -1,0 +1,4 @@
+Another day of pair progroming. We have tests, and we are failing them.
+Goal:: start getting some the functionality to pass them.
+
+-Scott

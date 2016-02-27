@@ -1,0 +1,5 @@
+Did some work on the written documents. Especially the design document. 
+Considering what we have left to do I feel like I will be regularly changing the stuff on it.
+Because so much left on the project is still open to modification. 
+
+-Scott

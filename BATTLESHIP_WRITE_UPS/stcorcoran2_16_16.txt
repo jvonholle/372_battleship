@@ -1,0 +1,4 @@
+Considered things about our game.
+A way to simplify the ship laying process is to just always drop them in order.
+
+-Scott
