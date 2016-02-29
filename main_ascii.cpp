@@ -39,7 +39,63 @@ int deCoord(string xi, string yi){
           return -1;
     }
 }
+///////////////////////////////////////////////////////////////////////////////////////////////
+//Bot stuff 
 
+void setupABoardForBot(char BootType)
+{
+	//Coordinagtes
+	string check = "n";
+	string ship;
+	string xcoord;
+	string ycoord;
+	int pos;
+	string rot;
+
+	std::default_random_engine generator;
+	std::uniform_int_distribution<int> distribution(0, 99);
+	int dice_roll = distribution(generator);  // generates number in the range 0..99
+	
+	bool valid;
+	do {
+		dice_roll = distribution(generator);
+		xcoord = dice_roll;
+		dice_roll = distribution(generator);
+		ycoord = dice_roll;
+		//Coordinagtes
+		xcoord = dice_roll;
+		dice_roll = distribution(generator);
+		ycoord = dice_roll;
+
+		//Facing
+		int facing = distribution(generator);
+		if (0 == facing % 4)
+		{
+			rot = 'U';
+		}
+		else if (1 == facing % 4)
+		{
+			rot = 'R';
+		}
+		else if (2 == facing % 4)
+		{
+			rot = 'L';
+		}
+		else if (3 == facing % 4)
+		{
+			rot = 'D';
+		}
+
+
+	}while(valid==1)
+}
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 //singleplayer
 //takes nothing
 //returns nothing
@@ -47,7 +103,6 @@ int deCoord(string xi, string yi){
 void singleplayer() {
 	cout << "SINGLEPLAYER!!" << endl;
 	board boardPlayer;
-	board boardBot;
 	cout << "You wiil be facing a computer controlled player enemy" << endl;
 	cout << "What difficulty Do you want to face?" << endl;
 	char x;
@@ -195,32 +250,20 @@ void singleplayer() {
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> distribution(0, 99);
 	int dice_roll = distribution(generator);  // generates number in the range 0..99
+
+	board boardBot;
+
+
 	cout << "Computer player is placing it ships" << endl;
+	setupABoardForBot('C'); 
+	setupABoardForBot('B');
+	setupABoardForBot('S');
+	setupABoardForBot('D');
+	setupABoardForBot('c');
 
-	//Coordinagtes
-	xcoord = dice_roll;
-	dice_roll = distribution(generator);
-	ycoord = dice_roll;
 
-	//Facing
-	int facing = distribution(generator);
-	if (0 == facing%4)
-	{
-		rot = 'U';
-	}
-	else if (1 == facing % 4)
-	{
-		rot = 'R';
-	}
-	else if (2 == facing % 4)
-	{
-		rot = 'L';
-	}
-	else if (3 == facing % 4)
-	{
-		rot = 'D';
-	}
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 
