@@ -7,6 +7,23 @@ using std::cin;
 using std::string;
 using std::getline;
 
+//System specific terminal tools
+#ifdef __linux__
+#include <termios.h>
+#include <unistd.h>
+const bool nux = true;
+const bool win = false;
+
+#elif __WIN32
+#include <windows.h>
+const bool nux = false;
+const bool win = true;
+
+#else
+const bool nux = false;
+const bool win = false;
+#endif
+
 //deCoord
 //takes a char and an int
 //returns an int
@@ -326,8 +343,44 @@ void twoplayer(){
 
     //main game loop
     while(true){
+        bool victory = true;
+        string pin;
+//Player 1 turn
         cout << player1 << "'s turn" << endl;
-        break;
+        cout << player1 << " please input your pin: ";
+        if(win){
+        }else if(nux){
+        }
+        getline(cin, pin);
+        if(win){
+        }else if(nux){
+        }
+//Check for Player 1 win
+        for(auto&i : boardP2.getships())
+	     if(!i.second.getsunk())
+                 victory = false;
+        if(victory){
+            cout << player1 << " WINS!!";
+            break;
+        }
+//Player 2 turn
+        cout << player2 << "'s turn" << endl;
+        cout << player2 << " please input your pin: ";
+        if(win){
+        }else if(nux){
+        }
+        getline(cin, pin);
+        if(win){
+        }else if(nux){
+        }
+//Check for Player 2 win
+        for(auto&i : boardP1.getships())
+	     if(!i.second.getsunk())
+                 victory = false;
+        if(victory){
+            cout << player2 << " WINS!!";
+            break;
+        }
     }
 }
 
