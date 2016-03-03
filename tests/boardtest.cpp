@@ -185,6 +185,12 @@ TEST_CASE("Testing takefire"){
             REQUIRE(test.takeFire(56) == 'M');
             REQUIRE(test.getmyBoard()[56] == -1);
         }
+        //check bad shot
+        SECTION("Check bad shot"){
+            REQUIRE(test.takeFire(1000) == 'R');
+            REQUIRE(test.takeFire(-1) == 'R');
+            REQUIRE(test.takeFire(101) == 'R');
+        }
         //check shoot same spot
         SECTION("Check same spot"){
             test.place("Sub", 13, 'R');

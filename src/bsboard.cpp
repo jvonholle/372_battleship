@@ -39,6 +39,8 @@ board::board(){
 }
 
 char board::takeFire(int coord){
+    if(coord < 0 || coord > 100)
+        return 'R';
     if (myBoard_[coord] == 1) //hits a boat
     {
         myBoard_[coord] = 2;
@@ -169,7 +171,7 @@ void board::print(int i){
             else{
             switch(getmyBoard()[((i-1)*10)+j]){
                 case 0 : cout << " ~"; break;
-                case 1 : cout << " *"; break;
+                case 1 : cout << " |"; break;
                 default : cout << "ERROR";
             }
             }
