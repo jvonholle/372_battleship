@@ -42,7 +42,7 @@ int deCoord(string xi, string yi){
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //Bot stuff 
 
-void setupABoardForBot(char BootType)
+void setupABoardForBot(char BootType, board &boardBot)
 {
 	//Coordinagtes
 	string check = "n";
@@ -55,20 +55,24 @@ void setupABoardForBot(char BootType)
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> distribution(0, 99);
 	int dice_roll = distribution(generator);  // generates number in the range 0..99
-	
-	bool valid;
-	do {
+
+	bool goodPlacement = false;
+	//while (goodPlacement == false)
+	{
 		dice_roll = distribution(generator);
 		xcoord = dice_roll;
+		cout << xcoord;
 		dice_roll = distribution(generator);
 		ycoord = dice_roll;
+		cout << ycoord;
 		//Coordinagtes
-		xcoord = dice_roll;
-		dice_roll = distribution(generator);
-		ycoord = dice_roll;
+		//xcoord = dice_roll;
+		//dice_roll = distribution(generator);
+		//ycoord = dice_roll;
 
 		//Facing
 		int facing = distribution(generator);
+		cout << facing;
 		if (0 == facing % 4)
 		{
 			rot = 'U';
@@ -86,8 +90,16 @@ void setupABoardForBot(char BootType)
 			rot = 'D';
 		}
 
+		if (boardBot.place(ship, pos, rot.front()))
+		{
+			cout << ("PLACED");
+			goodPlacement = true;
+			//break;
+		}
 
-	}while(valid==1)
+		boardBot.print(1);
+
+	}
 }
 
 
@@ -255,11 +267,11 @@ void singleplayer() {
 
 
 	cout << "Computer player is placing it ships" << endl;
-	setupABoardForBot('C'); 
-	setupABoardForBot('B');
-	setupABoardForBot('S');
-	setupABoardForBot('D');
-	setupABoardForBot('c');
+	setupABoardForBot('C', boardBot);
+	setupABoardForBot('B', boardBot);
+	setupABoardForBot('S', boardBot);
+	setupABoardForBot('D', boardBot);
+	setupABoardForBot('c', boardBot);
 
 
 }
