@@ -153,7 +153,7 @@ void board::print(int i){
         for(int j = 0; j < 10; ++j){
             if(i == 0){
                switch(j){
-                    case 0 : cout << "    A";  break;
+                    case 0 : cout << "   A";  break;
                     case 1 : cout << " B";  break;
                     case 2 : cout << " C";  break;
                     case 3 : cout << " D";  break;
@@ -182,13 +182,13 @@ void board::print(int i){
 void board::print(){
     for(int i = 0; i < 11; ++i){
         if(i > 0 && i < 10)
-            cout << i << ": ";
-        else 
-            cout << i << ":"; 
+            cout << i << " ";
+        else if(i == 10) 
+            cout << i; 
         for(int j = 0; j < 10; ++j){
             if(i == 0){
                switch(j){
-                    case 0 : cout << " A";  break;
+                    case 0 : cout << "   A";  break;
                     case 1 : cout << " B";  break;
                     case 2 : cout << " C";  break;
                     case 3 : cout << " D";  break;
@@ -202,13 +202,45 @@ void board::print(){
                 }
             }
             else{
-                switch(getmyBoard()[((i-1)*10)+j]){
-                    case 0 : cout << " ~"; break;
-                    case 1 : cout << " []"; break;
-                    case -1 : cout << " M"; break;
-                    case 2 : cout << " H"; break;
-                    default : cout << "ERROR";
+            switch(gettheirBoard()[((i-1)*10)+j]){
+                case 0 : cout << " ~"; break;
+                case 2 : cout << " o"; break;
+                case -1 : cout << " x"; break;
+                default : cout << "ERROR";
+            }
+            }
+        }
+        cout << endl;
+    }
+    for(int i = 0; i < 11; ++i){
+        if(i > 0 && i < 10)
+            cout<< "                       " << i << " ";
+        else if(i == 10) 
+            cout << "                       " << i ; 
+        for(int j = 0; j < 10; ++j){
+            if(i == 0){
+               switch(j){
+                    case 0 : cout << "                          A";  break;
+                    case 1 : cout << " B";  break;
+                    case 2 : cout << " C";  break;
+                    case 3 : cout << " D";  break;
+                    case 4 : cout << " E";  break;  
+                    case 5 : cout << " F";  break; 
+                    case 6 : cout << " G";  break; 
+                    case 7 : cout << " H";  break; 
+                    case 8 : cout << " I";  break; 
+                    case 9 : cout << " J";  break; 
+                    default : cout << "error";
                 }
+            }
+            else{
+            switch(getmyBoard()[((i-1)*10)+j]){
+                case 0 : cout << " ~"; break;
+                case 1 : cout << " |"; break;
+                case 2 : cout << " o"; break;
+                case -1 : cout << " x"; break;
+                default : cout << "ERROR";
+            }
             }
         }
         cout << endl;
