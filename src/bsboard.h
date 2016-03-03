@@ -69,6 +69,13 @@ class board{
             return myBoard_;}
         vector<int> gettheirBoard(){
             return theirBoard_;}
+        void settheirBoard(int coord, char stat){
+            switch(stat){
+                case 'H' : theirBoard_[coord] = 2; break;
+                case 'M' : theirBoard_[coord] = -1; break;
+                default  : theirBoard_[coord] = 0;
+            }
+        }
         int getPin(){
             return pin_;}
         map<string, ship> getships(){
