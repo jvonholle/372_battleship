@@ -48,8 +48,7 @@ char board::takeFire(int coord){
                 if(i.second.getpos().first == coord){
                     --i.second;
                     break;
-                }
-                else{
+                }else{
                     switch(i.second.getpos().second){
                         case 'U' : {
                                         for(int j = 0; j < i.second.getsize(); ++j)
@@ -107,8 +106,11 @@ bool board::place(const string & shipName, const int & coord, const char & rot){
                            return false;
                        else{
                            ships_[shipName].setpos(coord,rot);
-                           for(int i = 0; i < ships_[shipName].getsize(); ++i)
-                              myBoard_[coord-(i*10)] = 1; 
+                           for(int i = 0; i < ships_[shipName].getsize(); ++i){
+                               if(myBoard_[coord-(i*10)] != 0)
+                                   return false;
+                              myBoard_[coord-(i*10)] = 1;
+                           } 
                            return true;
                        }
                    }
@@ -116,8 +118,11 @@ bool board::place(const string & shipName, const int & coord, const char & rot){
                        for(int i = 1; i < ships_[shipName].getsize()+1; ++i)
                            if((coord+i)%10 == 0)
                                return false;
-                       for(int i = 0; i < ships_[shipName].getsize(); ++i)
+                       for(int i = 0; i < ships_[shipName].getsize(); ++i){
+                           if(myBoard_[coord+i] != 0)
+                               return false;
                            myBoard_[coord+i] = 1;
+                       }
                        ships_[shipName].setpos(coord,rot);
                        return true;
                    }
@@ -125,8 +130,11 @@ bool board::place(const string & shipName, const int & coord, const char & rot){
                        for(int i = 0; i < ships_[shipName].getsize(); ++i)
                            if((coord-i)%10 == 0)
                                return false;
-                       for(int i = 0; i < ships_[shipName].getsize(); ++i)
+                       for(int i = 0; i < ships_[shipName].getsize(); ++i){
+                           if(myBoard_[coord-i] != 0)
+                               return false;
                            myBoard_[coord-i] = 1; 
+                       }
                        ships_[shipName].setpos(coord,rot);
                        return true;
                    }
@@ -135,8 +143,11 @@ bool board::place(const string & shipName, const int & coord, const char & rot){
                            return false;
                        else{
                            ships_[shipName].setpos(coord,rot);
-                           for(int i = 0; i < ships_[shipName].getsize(); ++i)
+                           for(int i = 0; i < ships_[shipName].getsize(); ++i){
+                               if(myBoard_[coord+(i*10)] != 0)
+                                   return false;
                               myBoard_[coord+(i*10)] = 1; 
+                           }
                            return true;
                        }
                    }
