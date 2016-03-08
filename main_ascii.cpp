@@ -83,7 +83,7 @@ void setupABoardForBot(string BoatType, board &boardBot)
 	int ranPlace = dis(generator);  // generates number in the range 0..99
 
 	bool goodPlacement = false;
-	//while (goodPlacement == false)
+	while (goodPlacement == false)
 	{
 
 
