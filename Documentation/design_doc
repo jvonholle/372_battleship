@@ -9,19 +9,20 @@ Design Document:
 		They take turns placing boats and firing at one another
 
 
-	Our boards are being built from one vector to simulate a 2d array. Each position in this vector is modifiable
+	The boards are being built from one vector to simulate a 2d array. Each position in this vector is modifiable
 	to show different board states. One to show open water one to show a boat undamaged and one to show a secection of a damged boat.
 	The board itself should not be able to move to the playing state if doesnt pass our starting tests for being ok for setting up the board.
 	The user will see a set of columns and row labeled by numeric values for rows and the columns are labeled with letter values.
-	
-	Planning on using SDL to create the graphics our user will see.
+
+
+	The game keeps track of the states of the boats that it can inform the users of winning conditions being met.
+	This will signify the end of a game.
+
+
 	However we did add a version of it which is being printed out in ASCII art for the board.
-	That way if the user lacks the required files it still has a rudementry backup.
 	It has help feature in assisting the users through the process of ship placement.
+
 	
 	Are pin which the user uses to sign in for his turn will also need to be saved into the save state.
 	These pins are assigned to the user as a simple three digit number that exists between 100 and 999.
-	
-	Planning to implement save states by pushing off board state to a file. Those locations of modified spots
-	allows us to have them swap it in easy bacause it can just be re-assigned over a normal vector.
-	If we can save it easily in a non human readable form that loads back in good as well that is the plan.
+
