@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MORTAL SHIP KOMBAT
 <h4> A simple 1-2 player battleship game written in C++ by Scott Corcoran and James Von Holle. </h4>
 <br /br>
@@ -5,6 +6,8 @@
    <li><a href ="https://en.wikipedia.org/wiki/Battleship_%28game%29">Battleship on Wikipedia</a></li>
    <li><a href ="https://www.libsdl.org">SDL- Simple Directmedia Layer</a></li>
    <li><a href ="https://github.com/philsquared/Catch">Catch - The testing suite we're using</a></li>
+   <li><a href ="https://docs.google.com/document/d/1AqDPRVojaPCbqRec-HJ-nUzsYWh6DT53DQo49lw5B6o/edit?usp=sharing">Jimmy's project diary</a></li>
+
 <br /br>
    <h5> Make options: </h5>
    <h6> btest - compiles to the test suite for the board class - all pass </h6> 
