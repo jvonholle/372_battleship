@@ -72,6 +72,7 @@ void setupABoardForBot(string BoatType, board &boardBot)
 	string ship = BoatType;
 	string xcoord;
 	int tempxcoord;
+	int tempycoord;
 	string ycoord;
 	int pos;
 	string rot;
@@ -100,7 +101,17 @@ void setupABoardForBot(string BoatType, board &boardBot)
 		else if (tempxcoord == 9) { xcoord = "J"; }
 		cout << xcoord;
 		ranPlace = dis(generator);
-		ycoord = ranPlace;
+		tempycoord = ranPlace;
+		if (tempxcoord == 0) { ycoord = "1"; }
+		else if (tempycoord == 1) { ycoord = "2"; }
+		else if (tempycoord == 2) { ycoord = "3"; }
+		else if (tempycoord == 3) { ycoord = "4"; }
+		else if (tempycoord == 4) { ycoord = "5"; }
+		else if (tempycoord == 5) { ycoord = "6"; }
+		else if (tempycoord == 6) { ycoord = "7"; }
+		else if (tempycoord == 7) { ycoord = "8"; }
+		else if (tempycoord == 8) { ycoord = "9"; }
+		else if (tempycoord == 9) { ycoord = "10"; }
 		cout << ycoord;
 
 		//Facing
