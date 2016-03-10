@@ -321,6 +321,262 @@ void singleplayer() {
 	setupABoardForBot("Destroyer", boardBot);
 	setupABoardForBot("Cruiser", boardBot);
 
+	//////////////////////////Battle Fight////////////////////////////////////
+
+	int AIbehavior=0;
+	int AILasthInt;
+	int AILastChar;
+
+	bool victory;
+	char shoot;
+	//main game loop
+	while (true) {
+		victory = true;
+		//Player 1 turn
+		for (int i = 0; i < 1000; ++i)
+		{
+			cout << endl;
+		}
+
+		cout << "Your turn" << endl;
+		if (win) {
+			cout << "THIS IS WINDOWS" << endl;
+		}
+		/*else if (nux) {
+		termios oldt;
+		tcgetattr(STDIN_FILENO, &oldt);
+		termios newt = oldt;
+		newt.c_lflag &= ~ECHO;
+		tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+		getline(cin, pin);
+		tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+		}*/
+		while (true) 
+		{
+			if (true) 
+			{
+				cout << endl << "Welcome Admiral, we've been waing for you." << endl;
+				cout << "We've got the enemy on the run, where should we strike?" << endl;
+				boardPlayer.print();
+				cout << "Letter: ";
+				getline(cin, xcoord);
+				cout << "Number: ";
+				getline(cin, ycoord);
+				shoot = boardBot.takeFire(deCoord(xcoord, ycoord));
+				if (shoot == 'R') 
+				{
+					cout << "I'm sorry, we cannot fire there Admiral. Please try again." << endl;
+					continue;
+				}
+				else 
+				{
+					if (shoot == 'H')
+						cout << "It's a hit sir!" << endl;
+					else
+						cout << "I'm sorry sir it looks like we missed." << endl;
+
+					boardPlayer.settheirBoard(deCoord(xcoord, ycoord), shoot);
+					break;
+				}
+			}//////////////////////////////////////////////////////////////////////////////////
+				/*if (win) {
+					cout << "THIS IS WINDOWS" << endl;
+				}
+				else if (nux) {
+				termios oldt;
+				tcgetattr(STDIN_FILENO, &oldt);
+				termios newt = oldt;
+				newt.c_lflag &= ~ECHO;
+				tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+				getline(cin, pin);
+				tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+				}*/
+			}
+		//}
+		//Check for Player 1 win
+		for (auto&i : boardBot.getships())
+		{
+			if (!i.second.getsunk())
+				victory = false;
+			if (victory) 
+			{
+				cout << " WINS!!";
+				break;
+			}
+		}
+		cout << "Please hit enter when you are ready to pass to the next player";
+		while (cin.get() != '\n');
+		for (int i = 0; i< 1000; ++i)
+			cout << endl;
+		//Player 2 turn
+		cout << "Bot's turn" << endl;
+		/*if (win) {
+		}
+		else if (nux) {
+		termios oldt;
+		tcgetattr(STDIN_FILENO, &oldt);
+		termios newt = oldt;
+		newt.c_lflag &= ~ECHO;
+		tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+		getline(cin, pin);
+		tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+		}*/
+		while (true) 
+		{
+			if (true) 
+			{
+				cout << endl << "Welcome COMPUTER, we've been waing for you." << endl;
+				cout << "We've got the enemy on the run, where should we strike?" << endl;
+				boardBot.print();
+
+				std::random_device rd;
+				std::mt19937 generator(rd());
+				std::uniform_int_distribution<> dis(0, 9);
+				int ranPlace = dis(generator);  // generates number in the range 0..99
+				int tempxcoord;
+				int tempycoord;
+				int extrarandom;
+
+				if (AIbehavior==0)
+				{
+					ranPlace = dis(generator);
+					tempxcoord = ranPlace;
+					if (tempxcoord == 0) { xcoord = "A"; }
+					else if (tempxcoord == 1) { xcoord = "B"; }
+					else if (tempxcoord == 2) { xcoord = "C"; }
+					else if (tempxcoord == 3) { xcoord = "D"; }
+					else if (tempxcoord == 4) { xcoord = "E"; }
+					else if (tempxcoord == 5) { xcoord = "F"; }
+					else if (tempxcoord == 6) { xcoord = "G"; }
+					else if (tempxcoord == 7) { xcoord = "H"; }
+					else if (tempxcoord == 8) { xcoord = "I"; }
+					else if (tempxcoord == 9) { xcoord = "J"; }
+					cout << xcoord;
+					ranPlace = dis(generator);
+					tempycoord = ranPlace;
+					if (tempxcoord == 0) { ycoord = "1"; }
+					else if (tempycoord == 1) { ycoord = "2"; }
+					else if (tempycoord == 2) { ycoord = "3"; }
+					else if (tempycoord == 3) { ycoord = "4"; }
+					else if (tempycoord == 4) { ycoord = "5"; }
+					else if (tempycoord == 5) { ycoord = "6"; }
+					else if (tempycoord == 6) { ycoord = "7"; }
+					else if (tempycoord == 7) { ycoord = "8"; }
+					else if (tempycoord == 8) { ycoord = "9"; }
+					else if (tempycoord == 9) { ycoord = "10"; }
+					cout << ycoord;
+					shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
+				}
+				else if(AIbehavior == 1)
+				{
+					ranPlace = dis(generator);
+					tempxcoord = ranPlace;
+					ranPlace = dis(generator);
+					tempycoord = ranPlace;
+					ranPlace = dis(generator);
+					extrarandom = ranPlace;
+
+					if(extrarandom >= 50)
+					{
+						if (tempxcoord)
+						{
+							tempxcoord = tempxcoord + 1;
+						}
+						else
+						{
+							tempxcoord = tempxcoord - 1;
+						}
+						if (tempxcoord == 0) { xcoord = "A"; }
+						else if (tempxcoord == 1) { xcoord = "B"; }
+						else if (tempxcoord == 2) { xcoord = "C"; }
+						else if (tempxcoord == 3) { xcoord = "D"; }
+						else if (tempxcoord == 4) { xcoord = "E"; }
+						else if (tempxcoord == 5) { xcoord = "F"; }
+						else if (tempxcoord == 6) { xcoord = "G"; }
+						else if (tempxcoord == 7) { xcoord = "H"; }
+						else if (tempxcoord == 8) { xcoord = "I"; }
+						else if (tempxcoord == 9) { xcoord = "J"; }
+					}
+					else
+					{
+						if (tempycoord >= 50)
+						{
+							ycoord = tempycoord + 1;
+						}
+						else
+						{
+							ycoord = tempycoord - 1;
+						}
+						if (tempxcoord == 0) { ycoord = "1"; }
+						else if (tempycoord == 1) { ycoord = "2"; }
+						else if (tempycoord == 2) { ycoord = "3"; }
+						else if (tempycoord == 3) { ycoord = "4"; }
+						else if (tempycoord == 4) { ycoord = "5"; }
+						else if (tempycoord == 5) { ycoord = "6"; }
+						else if (tempycoord == 6) { ycoord = "7"; }
+						else if (tempycoord == 7) { ycoord = "8"; }
+						else if (tempycoord == 8) { ycoord = "9"; }
+						else if (tempycoord == 9) { ycoord = "10"; }
+					}
+					shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
+
+				}
+
+				if (shoot == 'R') 
+				{
+					cout << "I'm sorry, we cannot fire there Admiral. Please try again." << endl;
+					continue;
+				}
+				else 
+				{
+					if (shoot == 'H')
+					{
+						cout << "Confirmed hit! Good shooting sir." << endl;
+						AIbehavior = 1;
+					}
+					else
+					{
+						cout << "Damn! We missed sir, we'll get them next time." << endl;
+						AIbehavior = 0;
+					}
+					boardBot.settheirBoard(deCoord(xcoord, ycoord), shoot);
+					break;
+				}
+			}
+				/*if (win) {
+					cout << "THIS IS WINDOWS" << endl;
+				}
+				else if (nux) {
+				termios oldt;
+				tcgetattr(STDIN_FILENO, &oldt);
+				termios newt = oldt;
+				newt.c_lflag &= ~ECHO;
+				tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+				getline(cin, pin);
+				tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+				}*/
+			}
+		//}
+		//Check for Player 1 win
+		//Check for Player 2 win
+	for(auto&i : boardPlayer.getships())
+	{
+		if (!i.second.getsunk())
+		{
+			victory = false;
+		}
+		if (victory) 
+		{
+			cout << "COMPUTER WINS!!";
+			break;
+		}
+	}
+		cout << "Please hit enter when you are ready to pass to the next player";
+		while (cin.get() != '\n');
+		for (int i = 0; i< 1000; ++i)
+			cout << endl;
+
+	}
 
 }
 
