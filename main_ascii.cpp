@@ -145,7 +145,7 @@ void setupABoardForBot(string BoatType, board &boardBot)
 		{
 			cout << ("PLACED");
 			goodPlacement = true;
-			//break;
+			break;
 		}
 
 
@@ -186,16 +186,47 @@ void singleplayer() {
 	string ycoord;
 	int pos;
 	string rot;
-	bool allplaced = false;
 
-	while (!allplaced) {
-		cout << "-----SHIP PLACEMENT-----" << endl;
+	bool allplaced = false;
+	bool nomatch = true;
+
+	while (!allplaced) 
+	{
+		cout << "-----SHIP PLACEMENT FOR PLAYER-----" << endl;
 		cout << "> ";
 		getline(cin, ship);
+		nomatch = true;
+		if (ship == "skip") 
+		{
+			break;
+		}
+		for (auto& i : boardPlayer.getships())
+			if (i.first == ship) 
+			{
+				while (true) 
+				{
+					cout << "You are placing your " << ship << " it is " << boardPlayer.getship(ship).getsize() << " long" << endl;
+					cout << "Here is the current board:" << endl;
+					boardPlayer.print(1);
+					cout << "Where would you like your " << ship << " to be placed?  " << endl << "Letter: ";
+					getline(cin, xcoord);
+					cout << "Number: ";
+					getline(cin, ycoord);
+					pos = deCoord(xcoord, ycoord);
+					cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+					getline(cin, rot);
+					if (boardPlayer.place(ship, pos, rot.front()))
+						break;
+					else
+						cout << "Placement failed! Please try again." << endl;
+				}
+				nomatch = false;
+			}
 		if (ship == "help") {
 			cout << "list -- list of ships and their status" << endl <<
 				"help -- display this text" << endl <<
 				"\"shipname\" -- enter place menu for named ship" << endl;
+			nomatch = false;
 		}
 		else if (ship == "list") {
 			for (auto& i : boardPlayer.getships()) {
@@ -209,98 +240,9 @@ void singleplayer() {
 					allplaced = true;
 				}
 			}
+			nomatch = false;
 		}
-		else if (ship == "Cruiser") {
-			while (true) {
-				cout << " you are placing your " << ship << " it is " << boardPlayer.getship(ship).getsize() << " long" << endl;
-				cout << "Here is the current board:" << endl;
-				boardPlayer.print(1);
-				cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
-				getline(cin, xcoord);
-				cout << "N: ";
-				getline(cin, ycoord);
-				pos = deCoord(xcoord, ycoord);
-				cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
-				getline(cin, rot);
-				if (boardPlayer.place(ship, pos, rot.front()))
-					break;
-				else
-					cout << "Placement failed! Please try again." << endl;
-			}
-		}
-		else if (ship == "Sub") {
-			while (true) {
-				cout << " you are placing your " << ship << " it is " << boardPlayer.getship(ship).getsize() << " long" << endl;
-				cout << "Here is the current board:" << endl;
-				boardPlayer.print(1);
-				cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
-				getline(cin, xcoord);
-				cout << "N: ";
-				getline(cin, ycoord);
-				pos = deCoord(xcoord, ycoord);
-				cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
-				getline(cin, rot);
-				if (boardPlayer.place(ship, pos, rot.front()))
-					break;
-				else
-					cout << "Placement failed! Please try again." << endl;
-			}
-		}
-		else if (ship == "Destroyer") {
-			while (true) {
-				cout << " you are placing your " << ship << " it is " << boardPlayer.getship(ship).getsize() << " long" << endl;
-				cout << "Here is the current board:" << endl;
-				boardPlayer.print(1);
-				cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
-				getline(cin, xcoord);
-				cout << "N: ";
-				getline(cin, ycoord);
-				pos = deCoord(xcoord, ycoord);
-				cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
-				getline(cin, rot);
-				if (boardPlayer.place(ship, pos, rot.front()))
-					break;
-				else
-					cout << "Placement failed! Please try again." << endl;
-			}
-		}
-		else if (ship == "Battleship") {
-			while (true) {
-				cout << " you are placing your " << ship << " it is " << boardPlayer.getship(ship).getsize() << " long" << endl;
-				cout << "Here is the current board:" << endl;
-				boardPlayer.print(1);
-				cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
-				getline(cin, xcoord);
-				cout << "N: ";
-				getline(cin, ycoord);
-				pos = deCoord(xcoord, ycoord);
-				cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
-				getline(cin, rot);
-				if (boardPlayer.place(ship, pos, rot.front()))
-					break;
-				else
-					cout << "Placement failed! Please try again." << endl;
-			}
-		}
-		else if (ship == "Carrier") {
-			while (true) {
-				cout << " you are placing your " << ship << " it is " << boardPlayer.getship(ship).getsize() << " long" << endl;
-				cout << "Here is the current board:" << endl;
-				boardPlayer.print(1);
-				cout << "Where would you like your " << ship << " to be placed? (LETTER, NUMBER) " << endl << "L: ";
-				getline(cin, xcoord);
-				cout << "N: ";
-				getline(cin, ycoord);
-				pos = deCoord(xcoord, ycoord);
-				cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
-				getline(cin, rot);
-				if (boardPlayer.place(ship, pos, rot.front()))
-					break;
-				else
-					cout << "Placement failed! Please try again." << endl;
-			}
-		}
-		else {
+		else if (nomatch) {
 			cout << "Unrecognized command! Type help for commands." << endl;
 		}
 		allplaced = true;
@@ -308,6 +250,9 @@ void singleplayer() {
 			if (i.second.getpos().first == -1)
 				allplaced = false;
 	}//end player 1 turn 1
+
+	
+	
 
 	 /////////////////////////BOT SETUP///////////////////////////////////////
 	
@@ -326,6 +271,13 @@ void singleplayer() {
 	int AIbehavior=0;
 	int AILasthInt;
 	int AILastChar;
+	std::random_device rd;
+	std::mt19937 generator(rd());
+	std::uniform_int_distribution<> dis(0, 9);
+	int ranPlace = dis(generator);  // generates number in the range 0..99
+	int tempxcoord;
+	int tempycoord;
+	int extrarandom;
 
 	bool victory;
 	char shoot;
@@ -429,13 +381,7 @@ void singleplayer() {
 				cout << "We've got the enemy on the run, where should we strike?" << endl;
 				boardBot.print();
 
-				std::random_device rd;
-				std::mt19937 generator(rd());
-				std::uniform_int_distribution<> dis(0, 9);
-				int ranPlace = dis(generator);  // generates number in the range 0..99
-				int tempxcoord;
-				int tempycoord;
-				int extrarandom;
+
 
 				if (AIbehavior==0)
 				{
@@ -467,24 +413,36 @@ void singleplayer() {
 					cout << ycoord;
 					shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
 				}
-				else if(AIbehavior == 1)
+				else if(AIbehavior == 1) //This is for once it has hit a boat
 				{
-					ranPlace = dis(generator);
-					tempxcoord = ranPlace;
-					ranPlace = dis(generator);
-					tempycoord = ranPlace;
-					ranPlace = dis(generator);
-					extrarandom = ranPlace;
-
-					if(extrarandom >= 50)
+					//ranPlace = dis(generator);
+					//tempxcoord = ranPlace;
+					//ranPlace = dis(generator);
+					//tempycoord = ranPlace;
+					//ranPlace = dis(generator);
+					extrarandom = dis(generator);
+					///////////////////////////////////////////////////////////////
+					//This is for choosing if it shoots 1 up from last hit or down
+					if(extrarandom >= 5)
 					{
-						if (tempxcoord)
+
+						cout << "You are adjusting X by 1" << endl;
+						extrarandom = dis(generator);
+						if (extrarandom >= 5)
 						{
-							tempxcoord = tempxcoord + 1;
+							tempxcoord = AILastChar + 1;
+							if (tempxcoord == 10)
+							{
+								tempxcoord = 0;
+							}
 						}
 						else
 						{
-							tempxcoord = tempxcoord - 1;
+							tempxcoord = AILastChar - 1;
+							if (tempxcoord == -1)
+							{
+								tempxcoord = 9;
+							}
 						}
 						if (tempxcoord == 0) { xcoord = "A"; }
 						else if (tempxcoord == 1) { xcoord = "B"; }
@@ -496,16 +454,39 @@ void singleplayer() {
 						else if (tempxcoord == 7) { xcoord = "H"; }
 						else if (tempxcoord == 8) { xcoord = "I"; }
 						else if (tempxcoord == 9) { xcoord = "J"; }
+
+
+						if (AILasthInt == 0) { ycoord = "1"; }
+						else if (AILasthInt == 1) { ycoord = "2"; }
+						else if (AILasthInt == 2) { ycoord = "3"; }
+						else if (AILasthInt == 3) { ycoord = "4"; }
+						else if (AILasthInt == 4) { ycoord = "5"; }
+						else if (AILasthInt == 5) { ycoord = "6"; }
+						else if (AILasthInt == 6) { ycoord = "7"; }
+						else if (AILasthInt == 7) { ycoord = "8"; }
+						else if (AILasthInt == 8) { ycoord = "9"; }
+						else if (AILasthInt == 9) { ycoord = "10"; }
+
 					}
 					else
 					{
-						if (tempycoord >= 50)
+						cout << "You are adjusting Y by 1" << endl;
+						extrarandom = dis(generator);
+						if (extrarandom >= 5)
 						{
-							ycoord = tempycoord + 1;
+							tempycoord = AILasthInt + 1;
+							if (tempycoord == 10)
+							{
+								tempycoord = 0;
+							}
 						}
 						else
 						{
-							ycoord = tempycoord - 1;
+							tempycoord = AILasthInt - 1;
+							if (tempycoord == -1)
+							{
+								tempycoord = 9;
+							}
 						}
 						if (tempxcoord == 0) { ycoord = "1"; }
 						else if (tempycoord == 1) { ycoord = "2"; }
@@ -517,7 +498,23 @@ void singleplayer() {
 						else if (tempycoord == 7) { ycoord = "8"; }
 						else if (tempycoord == 8) { ycoord = "9"; }
 						else if (tempycoord == 9) { ycoord = "10"; }
+
+
+						if (AILastChar == 0) { xcoord = "A"; }
+						else if (AILastChar == 1) { xcoord = "B"; }
+						else if (AILastChar == 2) { xcoord = "C"; }
+						else if (AILastChar == 3) { xcoord = "D"; }
+						else if (AILastChar == 4) { xcoord = "E"; }
+						else if (AILastChar == 5) { xcoord = "F"; }
+						else if (AILastChar == 6) { xcoord = "G"; }
+						else if (AILastChar == 7) { xcoord = "H"; }
+						else if (AILastChar == 8) { xcoord = "I"; }
+						else if (AILastChar == 9) { xcoord = "J"; }
 					}
+					cout << xcoord;
+					cout << ycoord;
+					cout << "The old values were :" << AILastChar << AILasthInt << endl;
+
 					shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
 
 				}
@@ -533,6 +530,8 @@ void singleplayer() {
 					{
 						cout << "Confirmed hit! Good shooting sir." << endl;
 						AIbehavior = 1;
+						AILastChar = tempxcoord;
+						AILasthInt = tempycoord;
 					}
 					else
 					{
@@ -555,7 +554,7 @@ void singleplayer() {
 				getline(cin, pin);
 				tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 				}*/
-			}
+		}//while loop for bot end
 		//}
 		//Check for Player 1 win
 		//Check for Player 2 win
