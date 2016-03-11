@@ -75,21 +75,19 @@ void setupABoardForBot(string BoatType, board &boardBot)
 	int tempycoord;
 	string ycoord;
 	int pos;
-	string rot;
+	char rot;
 	char DEBUGGING;
 
 	std::random_device rd;
 	std::mt19937 generator(rd());
 	std::uniform_int_distribution<> dis(0, 9);
-	int ranPlace = dis(generator);  // generates number in the range 0..99
 
 	//bool goodPlacement = false;
 	while (true)
 	{
 
 
-		ranPlace = dis(generator);
-		tempxcoord = ranPlace;
+		tempxcoord = dis(generator);
 		if (tempxcoord == 0) { xcoord = "A"; }
 		else if (tempxcoord == 1) { xcoord = "B"; }
 		else if (tempxcoord == 2) { xcoord = "C"; }
@@ -101,8 +99,7 @@ void setupABoardForBot(string BoatType, board &boardBot)
 		else if (tempxcoord == 8) { xcoord = "I"; }
 		else if (tempxcoord == 9) { xcoord = "J"; }
 		cout << xcoord;
-		ranPlace = dis(generator);
-		tempycoord = ranPlace;
+		tempycoord = dis(generator);
 		if (tempxcoord == 0) { ycoord = "1"; }
 		else if (tempycoord == 1) { ycoord = "2"; }
 		else if (tempycoord == 2) { ycoord = "3"; }
@@ -117,7 +114,7 @@ void setupABoardForBot(string BoatType, board &boardBot)
 
 		//Facing
 
-		std::uniform_int_distribution<> smalldis(0, 1);
+		std::uniform_int_distribution<> smalldis(0, 3);
 		int facing = smalldis(generator);
 		if (0 == facing)
 		{
@@ -142,13 +139,11 @@ void setupABoardForBot(string BoatType, board &boardBot)
 		cout << ship << endl;
 		cout << pos << endl;
 
-		if (boardBot.place(ship, pos, rot.front()))
+		if (boardBot.place(ship, pos, rot))
 			break;
 		else
 			cout << "Placement failed! Please try again." << endl;
 
-		//cin >> DEBUGGING;
-		//cin >> DEBUGGING;
 		boardBot.print(1);
 
 	}
@@ -419,11 +414,6 @@ void singleplayer() {
 				else if(AIbehavior == 1) //This is for once it has hit a boat
 				{
 					cout << "STATE 1" << endl;
-					//ranPlace = dis(generator);
-					//tempxcoord = ranPlace;
-					//ranPlace = dis(generator);
-					//tempycoord = ranPlace;
-					//ranPlace = dis(generator);
 					extrarandom = dis(generator);
 					///////////////////////////////////////////////////////////////
 					//This is for choosing if it shoots 1 up from last hit or down
@@ -523,8 +513,14 @@ void singleplayer() {
 					cout << ycoord;
 					cout << "The old values were :" << AILastChar << AILasthInt << endl;
 
-					shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
-
+					if (boardPlayer.takeFire(deCoord(xcoord, ycoord)) != 'R')
+					{
+						shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
+					}
+					else
+					{
+						AIbehavior = 0;
+					}
 				}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if (AIbehavior == 2) //this needs to continue firing down a row/column
@@ -619,8 +615,16 @@ void singleplayer() {
 						else if (AILastChar == 8) { xcoord = "I"; }
 						else if (AILastChar == 9) { xcoord = "J"; }
 					}
-
-					shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
+					cout << xcoord;
+					cout << ycoord;					
+					if (boardPlayer.takeFire(deCoord(xcoord, ycoord)) != 'R')
+					{
+						shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
+					}
+					else
+					{
+						AIbehavior = 0;
+					}
 				}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if (AIbehavior == 3)
@@ -679,16 +683,16 @@ void singleplayer() {
 						else if (tempxcoord == 9) { xcoord = "J"; }
 
 
-						if (AILasthInt == 0) { ycoord = "1"; }
-						else if (AILasthInt == 1) { ycoord = "2"; }
-						else if (AILasthInt == 2) { ycoord = "3"; }
-						else if (AILasthInt == 3) { ycoord = "4"; }
-						else if (AILasthInt == 4) { ycoord = "5"; }
-						else if (AILasthInt == 5) { ycoord = "6"; }
-						else if (AILasthInt == 6) { ycoord = "7"; }
-						else if (AILasthInt == 7) { ycoord = "8"; }
-						else if (AILasthInt == 8) { ycoord = "9"; }
-						else if (AILasthInt == 9) { ycoord = "10"; }
+						if (originalIntHit == 0) { ycoord = "1"; }
+						else if (originalIntHit == 1) { ycoord = "2"; }
+						else if (originalIntHit == 2) { ycoord = "3"; }
+						else if (originalIntHit == 3) { ycoord = "4"; }
+						else if (originalIntHit == 4) { ycoord = "5"; }
+						else if (originalIntHit == 5) { ycoord = "6"; }
+						else if (originalIntHit == 6) { ycoord = "7"; }
+						else if (originalIntHit == 7) { ycoord = "8"; }
+						else if (originalIntHit == 8) { ycoord = "9"; }
+						else if (originalIntHit == 9) { ycoord = "10"; }
 					}
 					else
 					{
@@ -704,20 +708,27 @@ void singleplayer() {
 						else if (tempycoord == 9) { ycoord = "10"; }
 
 
-						if (AILastChar == 0) { xcoord = "A"; }
-						else if (AILastChar == 1) { xcoord = "B"; }
-						else if (AILastChar == 2) { xcoord = "C"; }
-						else if (AILastChar == 3) { xcoord = "D"; }
-						else if (AILastChar == 4) { xcoord = "E"; }
-						else if (AILastChar == 5) { xcoord = "F"; }
-						else if (AILastChar == 6) { xcoord = "G"; }
-						else if (AILastChar == 7) { xcoord = "H"; }
-						else if (AILastChar == 8) { xcoord = "I"; }
-						else if (AILastChar == 9) { xcoord = "J"; }
+						if (originalCharHit == 0) { xcoord = "A"; }
+						else if (originalCharHit == 1) { xcoord = "B"; }
+						else if (originalCharHit == 2) { xcoord = "C"; }
+						else if (originalCharHit == 3) { xcoord = "D"; }
+						else if (originalCharHit == 4) { xcoord = "E"; }
+						else if (originalCharHit == 5) { xcoord = "F"; }
+						else if (originalCharHit == 6) { xcoord = "G"; }
+						else if (originalCharHit == 7) { xcoord = "H"; }
+						else if (originalCharHit == 8) { xcoord = "I"; }
+						else if (originalCharHit == 9) { xcoord = "J"; }
 					}
-
-					shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
-
+					cout << xcoord;
+					cout << ycoord;
+					if (boardPlayer.takeFire(deCoord(xcoord, ycoord)) != 'R')
+					{
+						shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
+					}
+					else
+					{
+						AIbehavior = 0;
+					}
 				}
 
 				if (shoot == 'R') 
@@ -740,6 +751,10 @@ void singleplayer() {
 							AIbehavior = 1;
 						}
 						else if (AIbehavior == 1)
+						{
+							AIbehavior = 2;
+						}
+						else if (AIbehavior == 3)
 						{
 							AIbehavior = 2;
 						}
