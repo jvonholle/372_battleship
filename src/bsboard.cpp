@@ -4,7 +4,7 @@ using std::cout;
 using std::endl;
 #include <cstddef>
 using std::size_t;
-#include <random>//for pin generation, random_device and uniform_int_distribuition<>
+#include <random>//for pin generation and ai things, random_device and uniform_int_distribuition<>
 #include <utility>
 using std::make_pair;
 
@@ -38,6 +38,7 @@ board::board(){
     pin_ = pin(gen);
 }
 
+//takeFire
 char board::takeFire(int coord){
     if(coord < 0 || coord > 100)
         return 'R';
@@ -96,31 +97,42 @@ char board::takeFire(int coord){
     return 'R'; // they chose something wrong
 }
 
+//place
 bool board::place(const string & shipName, const int & coord, const char & rot){
-    if(coord < 0 || coord >99)
+    if(coord < 0 || coord >99){
+        ships_[shipName].setpos(-1,'N');
         return false;
+    }
     if(ships_[shipName].getpos().first == -1 && ships_[shipName].getpos().second == 'N'){
     switch(rot){
         case 'U' : {
-                       if(coord < ships_[shipName].getsize() * 10 )
-                           return false;
-                       else{
+                       if(coord < ships_[shipName].getsize() * 10 ){
                            ships_[shipName].setpos(coord,rot);
+                           return false;
+                       }
+                       else{
                            for(int i = 0; i < ships_[shipName].getsize(); ++i){
-                               if(myBoard_[coord-(i*10)] != 0)
+                               if(myBoard_[coord-(i*10)] != 0){
+                                   ships_[shipName].setpos(-1,'N');
                                    return false;
+                               }
                               myBoard_[coord-(i*10)] = 1;
                            } 
+                           ships_[shipName].setpos(coord,rot);
                            return true;
                        }
                    }
         case 'R' : {
                        for(int i = 1; i < ships_[shipName].getsize()+1; ++i)
-                           if((coord+i)%10 == 0)
+                           if((coord+i)%10 == 0){
+                               ships_[shipName].setpos(coord,rot);
                                return false;
+                           }
                        for(int i = 0; i < ships_[shipName].getsize(); ++i){
-                           if(myBoard_[coord+i] != 0)
+                           if(myBoard_[coord+i] != 0){
+                               ships_[shipName].setpos(-1,'N');
                                return false;
+                           }
                            myBoard_[coord+i] = 1;
                        }
                        ships_[shipName].setpos(coord,rot);
@@ -128,33 +140,42 @@ bool board::place(const string & shipName, const int & coord, const char & rot){
                    }
         case 'L' : {
                        for(int i = 0; i < ships_[shipName].getsize(); ++i)
-                           if((coord-i)%10 == 0)
+                           if((coord-i)%10 == 0){
+                               ships_[shipName].setpos(coord,rot);
                                return false;
+                           }
                        for(int i = 0; i < ships_[shipName].getsize(); ++i){
-                           if(myBoard_[coord-i] != 0)
+                           if(myBoard_[coord-i] != 0){
+                               ships_[shipName].setpos(coord,rot);
                                return false;
+                           }
                            myBoard_[coord-i] = 1; 
                        }
                        ships_[shipName].setpos(coord,rot);
                        return true;
                    }
         case 'D' : {
-                       if(coord + ships_[shipName].getsize() * 10 > 100)
-                           return false;
-                       else{
+                       if(coord + ships_[shipName].getsize() * 10 > 100){
                            ships_[shipName].setpos(coord,rot);
+                           return false;
+                       }
+                       else{
                            for(int i = 0; i < ships_[shipName].getsize(); ++i){
-                               if(myBoard_[coord+(i*10)] != 0)
+                               if(myBoard_[coord+(i*10)] != 0){
+                                   ships_[shipName].setpos(coord,rot);
                                    return false;
+                               }
                               myBoard_[coord+(i*10)] = 1; 
                            }
+                           ships_[shipName].setpos(coord,rot);
                            return true;
                        }
                    }
-        default : return false;
+        default :  ships_[shipName].setpos(-1,'N'); return false;
         }
     }
-return false;
+    ships_[shipName].setpos(-1,'N'); 
+    return false;
 }
 
 void board::print(int i){
@@ -257,5 +278,86 @@ void board::print(){
             }
         }
         cout << endl;
+    }
+}
+
+pair<int, int> board::go(pair<int, int> state, board & enemy){
+    std::random_device gen;
+    std::uniform_int_distribution<> pos(0,99);
+    char shoot = 'b';
+    int shot = state.second;
+    while(true){
+        if(state.first == 0){
+            shot = pos(gen);
+            shoot = enemy.takeFire(shot);
+            if(shoot == 'R')
+                continue;
+            else if(shoot == 'H')
+                return make_pair(1, shot+1);
+            else
+                return make_pair(0, 0);
+        }else if(state.first == 1){
+            shoot = enemy.takeFire(state.second);
+            if(shoot == 'R'){
+                state.first = 0;
+                continue;
+            }else if(shoot == 'H')
+                return make_pair(1, shot+1);
+            else
+                return make_pair(2, shot-2);
+        }else if(state.first == 2){
+            shoot = enemy.takeFire(state.second);
+            if(shoot == 'R'){
+                state.first = 0;
+                continue;
+            }else if(shoot == 'H')
+                return make_pair(2, shot-1);
+            else
+                return make_pair(3, shot+11);
+        }else if(state.first == 3){
+            shoot = enemy.takeFire(state.second);
+            if(shoot == 'R'){
+                state.first = 0;
+                continue;
+            }else if(shoot == 'H')
+                return make_pair(3, shot+10);
+            else
+                return make_pair(4, shot-20);
+        }else if(state.first == 4){
+            shoot = enemy.takeFire(state.second);
+            if(shoot == 'R'){
+                state.first = 0;
+                continue;
+            }else if(shoot == 'H')
+                return make_pair(4, shot-10);
+            else
+                return make_pair(0,0);
+        }else{
+            return make_pair(0,0);
+        }
+    }
+}
+
+void board::init(){
+    std::random_device gen;
+    std::uniform_int_distribution<> pos(0,99);
+    std::uniform_int_distribution<> rot(0,3);
+    char ori;
+    int temp;
+    bool placed;
+    for(auto & i : ships_){
+        placed = false;
+        while(!placed){
+            temp = rot(gen); 
+            switch(temp){
+                case 0 : ori = 'U'; break;
+                case 1 : ori = 'L'; break;
+                case 2 : ori = 'R'; break;
+                case 3 : ori = 'D'; break;
+                default : ori = 'z';
+            }
+            temp = pos(gen);
+            placed = place(i.first, temp, ori);
+        }
     }
 }
