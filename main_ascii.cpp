@@ -76,14 +76,15 @@ void setupABoardForBot(string BoatType, board &boardBot)
 	string ycoord;
 	int pos;
 	string rot;
+	char DEBUGGING;
 
 	std::random_device rd;
 	std::mt19937 generator(rd());
 	std::uniform_int_distribution<> dis(0, 9);
 	int ranPlace = dis(generator);  // generates number in the range 0..99
 
-	bool goodPlacement = false;
-	while (goodPlacement == false)
+	//bool goodPlacement = false;
+	while (true)
 	{
 
 
@@ -142,14 +143,14 @@ void setupABoardForBot(string BoatType, board &boardBot)
 		cout << pos << endl;
 
 		if (boardBot.place(ship, pos, rot.front()))
-		{
-			cout << ("PLACED");
-			goodPlacement = true;
 			break;
-		}
+		else
+			cout << "Placement failed! Please try again." << endl;
 
-
+		//cin >> DEBUGGING;
+		//cin >> DEBUGGING;
 		boardBot.print(1);
+
 	}
 }
 
@@ -167,10 +168,6 @@ void singleplayer() {
 	cout << "SINGLEPLAYER!!" << endl;
 	board boardPlayer;
 	cout << "You wiil be facing a computer controlled player enemy" << endl;
-	cout << "What difficulty Do you want to face?" << endl;
-	char x;
-	cin >> x;
-	cout << "this doesnt work yet" << endl;
 
 	/*
 	switch (x);
@@ -278,6 +275,7 @@ void singleplayer() {
 	int tempxcoord;
 	int tempycoord;
 	int extrarandom;
+	int whichWayToFireForstep2=0;
 
 	bool victory;
 	char shoot;
@@ -431,6 +429,7 @@ void singleplayer() {
 						if (extrarandom >= 5)
 						{
 							tempxcoord = AILastChar + 1;
+							whichWayToFireForstep2 = 1;
 							if (tempxcoord == 10)
 							{
 								tempxcoord = 0;
@@ -439,6 +438,7 @@ void singleplayer() {
 						else
 						{
 							tempxcoord = AILastChar - 1;
+							whichWayToFireForstep2 = 3;
 							if (tempxcoord == -1)
 							{
 								tempxcoord = 9;
@@ -475,6 +475,7 @@ void singleplayer() {
 						if (extrarandom >= 5)
 						{
 							tempycoord = AILasthInt + 1;
+							whichWayToFireForstep2 = 0;
 							if (tempycoord == 10)
 							{
 								tempycoord = 0;
@@ -483,6 +484,7 @@ void singleplayer() {
 						else
 						{
 							tempycoord = AILasthInt - 1;
+							whichWayToFireForstep2 = 2;
 							if (tempycoord == -1)
 							{
 								tempycoord = 9;
@@ -519,6 +521,102 @@ void singleplayer() {
 
 				}
 
+				if (AIbehavior == 2) //this needs to continue firing down a row/column
+				{
+					//previous change = previous change + 1
+					///////////////////////////////////////////////////////////////
+					//This is for choosing if it shoots 1 up from last hit or down
+					if(whichWayToFireForstep2==0)
+					{
+						tempycoord = AILasthInt + 1;
+						whichWayToFireForstep2 = 0;
+						if (tempycoord == 10)
+						{
+							tempycoord = 0;
+						}
+					}
+					else if(whichWayToFireForstep2 == 1)
+					{
+						tempxcoord = AILastChar + 1;
+						whichWayToFireForstep2 = 1;
+						if (tempxcoord == 10)
+						{
+							tempxcoord = 0;
+						}
+					}
+					else if (whichWayToFireForstep2 == 2)
+					{
+						tempycoord = AILasthInt - 1;
+						whichWayToFireForstep2 = 2;
+						if (tempycoord == -1)
+						{
+							tempycoord = 9;
+						}
+					}
+					else
+					{
+						tempxcoord = AILastChar - 1;
+						whichWayToFireForstep2 = 3;
+						if (tempxcoord == -1)
+						{
+							tempxcoord = 9;
+						}
+					}
+
+					if(whichWayToFireForstep2 == 1 || whichWayToFireForstep2 == 3)
+					{
+						if (tempxcoord == 0) { xcoord = "A"; }
+						else if (tempxcoord == 1) { xcoord = "B"; }
+						else if (tempxcoord == 2) { xcoord = "C"; }
+						else if (tempxcoord == 3) { xcoord = "D"; }
+						else if (tempxcoord == 4) { xcoord = "E"; }
+						else if (tempxcoord == 5) { xcoord = "F"; }
+						else if (tempxcoord == 6) { xcoord = "G"; }
+						else if (tempxcoord == 7) { xcoord = "H"; }
+						else if (tempxcoord == 8) { xcoord = "I"; }
+						else if (tempxcoord == 9) { xcoord = "J"; }
+
+
+						if (AILasthInt == 0) { ycoord = "1"; }
+						else if (AILasthInt == 1) { ycoord = "2"; }
+						else if (AILasthInt == 2) { ycoord = "3"; }
+						else if (AILasthInt == 3) { ycoord = "4"; }
+						else if (AILasthInt == 4) { ycoord = "5"; }
+						else if (AILasthInt == 5) { ycoord = "6"; }
+						else if (AILasthInt == 6) { ycoord = "7"; }
+						else if (AILasthInt == 7) { ycoord = "8"; }
+						else if (AILasthInt == 8) { ycoord = "9"; }
+						else if (AILasthInt == 9) { ycoord = "10"; }
+					}
+					else
+					{
+						if (tempxcoord == 0) { ycoord = "1"; }
+						else if (tempycoord == 1) { ycoord = "2"; }
+						else if (tempycoord == 2) { ycoord = "3"; }
+						else if (tempycoord == 3) { ycoord = "4"; }
+						else if (tempycoord == 4) { ycoord = "5"; }
+						else if (tempycoord == 5) { ycoord = "6"; }
+						else if (tempycoord == 6) { ycoord = "7"; }
+						else if (tempycoord == 7) { ycoord = "8"; }
+						else if (tempycoord == 8) { ycoord = "9"; }
+						else if (tempycoord == 9) { ycoord = "10"; }
+
+
+						if (AILastChar == 0) { xcoord = "A"; }
+						else if (AILastChar == 1) { xcoord = "B"; }
+						else if (AILastChar == 2) { xcoord = "C"; }
+						else if (AILastChar == 3) { xcoord = "D"; }
+						else if (AILastChar == 4) { xcoord = "E"; }
+						else if (AILastChar == 5) { xcoord = "F"; }
+						else if (AILastChar == 6) { xcoord = "G"; }
+						else if (AILastChar == 7) { xcoord = "H"; }
+						else if (AILastChar == 8) { xcoord = "I"; }
+						else if (AILastChar == 9) { xcoord = "J"; }
+					}
+
+					shoot = boardPlayer.takeFire(deCoord(xcoord, ycoord));
+				}
+
 				if (shoot == 'R') 
 				{
 					cout << "I'm sorry, we cannot fire there Admiral. Please try again." << endl;
@@ -529,7 +627,14 @@ void singleplayer() {
 					if (shoot == 'H')
 					{
 						cout << "Confirmed hit! Good shooting sir." << endl;
-						AIbehavior = 1;
+						if (AIbehavior == 0)
+						{
+							AIbehavior = 1;
+						}
+						else if (AIbehavior == 1)
+						{
+							AIbehavior = 2;
+						}
 						AILastChar = tempxcoord;
 						AILasthInt = tempycoord;
 					}
