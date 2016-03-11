@@ -118,8 +118,27 @@ TEST_CASE("Testing Place"){
             REQUIRE(test.getmyBoard()[63] == 1);  
             REQUIRE(test.getmyBoard()[73] == 1);
         }
+        SECTION("Check fail because of overlap"){
+            REQUIRE(test.place("Battleship", 43, 'D') == true);
+            REQUIRE(test.getship("Battleship").getpos().first == 43);
+            REQUIRE(test.getship("Battleship").getpos().second == 'D'); 
+            REQUIRE(test.getship("Battleship").gethealth() == 4);
+            REQUIRE(test.getship("Battleship").getsunk() == false);
+            REQUIRE(test.getmyBoard()[43] == 1);
+            REQUIRE(test.getmyBoard()[53] == 1);
+            REQUIRE(test.getmyBoard()[63] == 1);  
+            REQUIRE(test.getmyBoard()[73] == 1);
+            REQUIRE(test.place("Cruiser", 52, 'L') == false);
+            REQUIRE(test.getship("Cruiser").getpos().first == -1);
+            REQUIRE(test.getship("Carrier").getpos().second == 'N'); 
+            REQUIRE(test.getship("Cruiser").gethealth() == 3);
+            REQUIRE(test.getship("Cruiser").getsunk() == false);
+            REQUIRE(test.getmyBoard()[52] == 0);
+            REQUIRE(test.getmyBoard()[53] == 1);
+            REQUIRE(test.getmyBoard()[54] == 0);
+        }
         //check fail because already placed
-        SECTION("Check fail becase already placed"){
+        SECTION("Check fail because already placed"){
             REQUIRE(test.place("Sub", 13, 'R') == true);
             REQUIRE(test.getship("Sub").getpos().first == 13);
             REQUIRE(test.getship("Sub").getpos().second == 'R'); 

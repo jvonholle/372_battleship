@@ -62,6 +62,117 @@ int deCoord(string xi, string yi){
 //produces single player game loop
 void singleplayer(){
     cout << "SINGLEPLAYER!!" << endl;
+    board player;
+    string dificulty;
+    board ai;
+    ai.init();
+    bool nomatch;
+    string ship;
+    string xcoord;
+    string ycoord;
+    int pos;
+    string rot;
+    bool allplaced = false;
+    char shoot;
+    //player turn 1
+    while(!allplaced){
+        cout << "-----PLACE YOUR SHIPS!!!-----" << endl;
+        cout << "> "; 
+        getline(cin,  ship);
+        nomatch = true;
+        if(ship == "skip"){
+            player.init();
+            break;
+        }
+        for(auto& i : player.getships())
+            if(i.first == ship){
+                while(true){
+                    cout << "You are placing your " << ship << " it is " << player.getship(ship).getsize() << " long" << endl;
+                    cout << "Here is the current board:" << endl;
+                    player.print(1);
+                    cout << "Where would you like your " << ship << " to be placed?  " << endl << "Letter: ";
+                    getline(cin,  xcoord);
+                    cout << "Number: ";
+                    getline(cin,  ycoord);
+                    pos = deCoord(xcoord, ycoord);
+                    cout << "Which direction should your " << ship << " face? (U,D,L,R) ";
+                    getline(cin, rot);
+                    if(player.place(ship, pos, rot.front()))
+                        break;
+                    else
+                        cout << "Placement failed! Please try again." << endl;
+                }
+                nomatch = false;
+            }
+        if(ship == "help"){
+           cout << "list -- list of ships and their status" << endl <<
+              "help -- display this text" << endl <<
+              "\"shipname\" -- enter place menu for named ship" << endl;
+           nomatch = false;
+        }else if(ship == "list"){
+            for(auto& i : player.getships()){
+                cout << i.first << " : " ;
+                if(i.second.getpos().first == -1){
+                    cout << "not placed" << endl;
+                    allplaced = false;
+                }else{
+                    cout << "placed" << endl;
+                    allplaced = true;
+                }
+            }
+           nomatch = false;
+        }else if(nomatch){
+            cout << "Unrecognized command! Type help for commands." << endl;
+        }
+        allplaced = true;
+        for(auto& i : player.getships())
+            if(i.second.getpos().first == -1)
+                allplaced = false;
+    }//end player turn 1
+
+    pair<int, int> state;
+    bool victory;
+    cout << "Welcome Admiral, we've been waing for you." << endl;
+    //main game loop singleplayer
+    while(true){
+        victory = false;
+        cout << "We've got the enemy on the run, where should we strike?" << endl;
+        player.print();
+        cout << "Letter: ";
+        getline(cin, xcoord); 
+        cout << "Number: ";
+        getline(cin, ycoord);
+        shoot = ai.takeFire(deCoord(xcoord, ycoord));
+        if(shoot == 'R'){
+            cout << "I'm sorry, we cannot fire there Admiral. Please try again." << endl;
+            continue;
+        }else{
+            if(shoot == 'H')
+                cout << "It's a hit sir!" << endl;
+            else
+                cout << "I'm sorry sir it looks like we missed." << endl;
+
+            player.settheirBoard(deCoord(xcoord, ycoord), shoot);
+        }
+        for(auto&i : ai.getships()){
+	        if(!i.second.getsunk())
+                victory = false;
+            else
+                cout << "We've sunk their, " << i.first << endl;
+        }
+        if(victory){
+            cout << "YOU WON!!" << endl;
+            break;
+        }
+       state = ai.go(state, player);
+        for(auto&i : player.getships())
+	        if(!i.second.getsunk())
+                victory = false;
+        if(victory){
+            cout << "YOU LOST!" << endl;
+            break;
+        }
+    }
 }
 
 //twoplayer
@@ -105,6 +216,7 @@ void twoplayer(){
         getline(cin,  ship);
         nomatch = true;
         if(ship == "skip"){
+            boardP1.init();
             break;
         }
         for(auto& i : boardP1.getships())
@@ -130,7 +242,8 @@ void twoplayer(){
         if(ship == "help"){
            cout << "list -- list of ships and their status" << endl <<
               "help -- display this text" << endl <<
-              "\"shipname\" -- enter place menu for named ship" << endl;
+              "\"shipname\" -- enter place menu for named ship" << endl << 
+              "skip -- randomly place ships" << endl;
            nomatch = false;
         }else if(ship == "list"){
             for(auto& i : boardP1.getships()){
@@ -178,6 +291,7 @@ void twoplayer(){
         nomatch = true;
         getline(cin,  ship);
         if(ship == "skip"){
+            boardP2.init();
             break;
         }
         for(auto& i : boardP2.getships())
@@ -203,7 +317,8 @@ void twoplayer(){
         if(ship == "help"){
            cout << "list -- list of ships and their status" << endl <<
               "help -- display this text" << endl <<
-              "\"shipname\" -- enter place menu for named ship" << endl;
+              "\"shipname\" -- enter place menu for named ship" << endl << 
+              "skip -- randomly place boards" << endl;
            nomatch = false;
         }else if(ship == "list"){
             for(auto& i : boardP2.getships()){
@@ -293,8 +408,8 @@ void twoplayer(){
         }
 //Check for Player 1 win
         for(auto&i : boardP2.getships())
-	     if(!i.second.getsunk())
-                 victory = false;
+	        if(!i.second.getsunk())
+                victory = false;
         if(victory){
             cout << player1 << " WINS!!";
             break;

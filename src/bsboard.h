@@ -91,6 +91,8 @@ class board{
 
         void print(int i);
         void print();
+        pair<int,int> go(pair<int,int> state, board & enemy);
+        void init();
 
     private:
         map<string, ship> ships_;
